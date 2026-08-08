@@ -51,4 +51,7 @@ sudo chmod 644 /etc/rancher/k3s/k3s.yaml
 ## Intall helm
 curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+
 helm install postgresql oci://registry-1.docker.io/bitnamicharts/postgresql --namespace=book-store
+

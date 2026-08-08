@@ -1,0 +1,13 @@
+auth:
+  username: "book_store"
+  database: "book_store"
+  existingSecret: "postgres-secret"
+  secretKeys:
+    adminPasswordKey: "POSTGRES_PASSWORD"
+    userPasswordKey: "POSTGRES_PASSWORD"
+
+primary:
+  persistence:
+    enabled: true
+    storageClass: "local-path"
+    size: 8Gi

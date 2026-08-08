@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-secret
+  namespace: book-store
+type: Opaque
+stringData:
+  POSTGRES_PASSWORD: "book_store_password"
