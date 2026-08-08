@@ -1,0 +1,37 @@
+services:
+  book-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: book-app:local
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-book_store}:${POSTGRES_PASSWORD:-book_store_password}@postgresql:5432/${POSTGRES_DB:-book_store}
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    depends_on:
+      postgresql:
+        condition: service_healthy
+
+  postgresql:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-book_store}
+      POSTGRES_USER: ${POSTGRES_USER:-book_store}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-book_store_password}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  postgresql_data:

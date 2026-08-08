@@ -19,6 +19,8 @@ RUN uv sync --frozen --no-install-project --no-dev
 # Copy application source code
 COPY main.py ./
 COPY src/ ./src/ 
+COPY alembic.ini ./
+COPY alembic/ ./alembic/
 COPY setup.sh ./setup.sh
 
 # Complete installation of the project
@@ -36,4 +38,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 EXPOSE 8000
 
 # Start Uvicorn server
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "alembic upgrade head && exec uvicorn main:app --host 0.0.0.0 --port 8000"]

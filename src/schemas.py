@@ -1,15 +1,14 @@
-from pydantic import BaseModel
-from sqlmodel import Field, SQLModel
-
-
-class Book(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    title: str
-    author: str
-    year: int | None = None
-
+from pydantic import BaseModel, ConfigDict
 
 class CreateBook(BaseModel):
+    title: str
+    author: str
+    year: int
+
+class BookOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
     title: str
     author: str
     year: int
