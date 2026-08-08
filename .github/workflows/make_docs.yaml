@@ -30,6 +30,5 @@ jobs:
       - run: pip install mkdocs-jupyter
       - run: pip install pillow cairosvg # install social share card plugins
 #       - run: pip install jupyter
-      - run: cp docs/*.md docs/
       # - run: cp extras/00_pytorch_fundamentals.md docs/
       - run: mkdocs gh-deploy --force
