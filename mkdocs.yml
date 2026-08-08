@@ -50,7 +50,6 @@ edit_uri: ""
 
 nav:
   - Home: 'index.md'
-  - Get Started: 'started.md'
 
 # extra:
 #   social:
